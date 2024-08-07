@@ -1,32 +1,54 @@
 #!/bin/bash
+
+# Define color codes for terminal output
 WHITE='\033[0;37m' 
 BLUE='\033[0;36m'
 GREEN='\033[0;32m'
 RED='\033[0;31m'
-NC='\033[0m'
-if ls -l $HOME | grep "francinette-image" &> /dev/null; then
-    mkdir -p $HOME/.tmp_francinette
-    git clone https://github.com/WaRtr0/francinette-image.git $HOME/.tmp_francinette/francinette-image
+NC='\033[0m' # No Color
 
-    source $HOME/.tmp_francinette/francinette-image/utils/move_tmp.sh
-    source $HOME/.tmp_francinette/francinette-image/utils/remove_docker.sh
-    source $HOME/.tmp_francinette/francinette-image/utils/remove_zshrc.sh
+# Define directories
+INSTALL_DIR="$HOME/sgoinfre/francinette-image"
+TMP_DIR="$HOME/sgoinfre/.tmp_francinette"
 
-    rm -rf $HOME/francinette-image
+# Check if the installation directory exists
+if ls -l $INSTALL_DIR &> /dev/null; then
+    # Create a temporary directory
+    mkdir -p $TMP_DIR
 
-    mkdir -p $HOME/francinette-image
-    mv $HOME/.tmp_francinette/francinette-image/* $HOME/francinette-image/
-    if ls -l $HOME/.tmp_francinette | grep "francinette.tar" &> /dev/null; then
-        mv $HOME/.tmp_francinette/francinette.tar $HOME/francinette-image/
+    # Clone the repository into the temporary directory
+    git clone https://github.com/WaRtr0/francinette-image.git $TMP_DIR/francinette-image
+
+    # Source the removal scripts
+    source $TMP_DIR/francinette-image/utils/move_tmp.sh
+    source $TMP_DIR/francinette-image/utils/remove_docker.sh
+    source $TMP_DIR/francinette-image/utils/remove_zshrc.sh
+
+    # Remove the existing installation directory
+    rm -rf $INSTALL_DIR
+
+    # Create a new installation directory
+    mkdir -p $INSTALL_DIR
+
+    # Move files from the temporary directory to the new installation directory
+    mv $TMP_DIR/francinette-image/* $INSTALL_DIR/
+
+    # Move the francinette.tar file if it exists
+    if ls -l $TMP_DIR | grep "francinette.tar" &> /dev/null; then
+        mv $TMP_DIR/francinette.tar $INSTALL_DIR/
     fi
 
-    rm -rf $HOME/.tmp_francinette
+    # Remove the temporary directory
+    rm -rf $TMP_DIR
 
-    source $HOME/francinette-image/install.sh
+    # Source the install script
+    source $INSTALL_DIR/install.sh
 
-    
+    # Print success message
     echo -e "${BLUE}[Francinette] ${WHITE}Updated ${GREEN}OK"
 fi
-if ! ls -l $HOME | grep "francinette-image" &> /dev/null; then
+
+# Check if the installation directory does not exist
+if ! ls -l $INSTALL_DIR &> /dev/null; then
     echo -e "${BLUE}[Francinette] ${WHITE}Updated ${RED}ERROR (francinette not installed...)"
 fi
