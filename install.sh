@@ -11,7 +11,6 @@ NC='\033[0m' # No Color
 # Define directories
 INSTALL_DIR="$HOME/sgoinfre/francinette-image"
 TMP_DIR="$HOME/sgoinfre/.tmp_francinette"
-SHARE_DIR="/sgoinfre/goinfre/Perso/mmorot/share"
 
 # Exit on error
 set -e
