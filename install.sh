@@ -1,38 +1,44 @@
 #!/bin/bash
+
+# Define color codes for terminal output
 WHITE='\033[0;37m' 
 BLUE='\033[0;36m'
 GREEN='\033[0;32m'
 RED='\033[0;31m'
 BWhite='\033[1;37m' 
-NC='\033[0m'
-if ! ls -l $HOME | grep "francinette-image" &> /dev/null; then
-	git clone https://github.com/WaRtr0/francinette-image.git $HOME/francinette-image
+NC='\033[0m' # No Color
+
+# Define directories
+INSTALL_DIR="$HOME/sgoinfre/francinette-image"
+TMP_DIR="$HOME/sgoinfre/.tmp_francinette"
+SHARE_DIR="/sgoinfre/goinfre/Perso/mmorot/share"
+
+# Exit on error
+set -e
+
+# Create the installation directory if it doesn't exist
+if [ ! -d "$INSTALL_DIR" ]; then
+    git clone https://github.com/WaRtr0/francinette-image.git $INSTALL_DIR
 fi
 
-chmod +x $HOME/francinette-image/run.sh
+# Make sure the run.sh script is executable
+chmod +x $INSTALL_DIR/run.sh
 
-if ! ls -l $HOME/francinette-image | grep "francinette.tar" &> /dev/null; then
-	if hostname | grep "42lyon.fr" &> /dev/null; then
- 		if ls -l /sgoinfre/goinfre/Perso/mmorot/share | grep "francinette.tar" &> /dev/null; then
-   			echo -e "${BLUE}[Francinette] ${WHITE}Copy of francinette.tar (${BWhite}/sgoinfre/goinfre/Perso/mmorot/share${WHITE})"
-      			cp /sgoinfre/goinfre/Perso/mmorot/share/francinette.tar $HOME/francinette-image/
-	 		echo -e "${BLUE}[Francinette] ${WHITE}Copy ${GREEN}OK"
-   		fi
- 	fi
+# Build and save the Docker image if francinette.tar is not present
+if [ ! -f "$INSTALL_DIR/francinette.tar" ]; then
+    docker build -t francinette-image $INSTALL_DIR
+    docker image save francinette-image > $INSTALL_DIR/francinette.tar
 fi
 
-if ! ls -l $HOME/francinette-image | grep "francinette.tar" &> /dev/null; then
-	docker build -t francinette-image $HOME/francinette-image
-	docker image save francinette-image > $HOME/francinette-image/francinette.tar
-fi
-if ls -l $HOME/francinette-image | grep "francinette.tar" &> /dev/null; then
-	docker load < $HOME/francinette-image/francinette.tar
+# Load the Docker image if francinette.tar is present
+if [ -f "$INSTALL_DIR/francinette.tar" ]; then
+    docker load < $INSTALL_DIR/francinette.tar
 fi
 
-source $HOME/francinette-image/utils/install_zshrc.sh
+# Source the install script for zshrc
+source $INSTALL_DIR/utils/install_zshrc.sh
 
-
+# Print completion message and restart the shell
 echo -e "${BLUE}[Francinette] ${GREEN}Installation completed!\n${WHITE}Use the ${BWhite}paco${WHITE} or ${BWhite}francinette${WHITE} commands in your project folder."
 
 exec "$SHELL"
-
