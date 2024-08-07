@@ -22,14 +22,6 @@ Copy and paste the following line into your terminal to kick off the installatio
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/mgrl39/francinette-sgoinfre/master/install.sh)"
 ```
 
-## Update:
-
-Copy and paste the following line into your terminal to launch the francinette update
-
-```shell
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/mgrl39/francinette-sgoinfre/master/update.sh)"
-```
-
 ## Documentation
 
 I can only advise you to look at the [original Francinette documentation](https://github.com/xicodomingues/francinette/tree/master#readme) for good use of this great tool!
