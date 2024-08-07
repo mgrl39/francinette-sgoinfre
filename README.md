@@ -30,11 +30,6 @@ Copy and paste the following line into your terminal to launch the francinette u
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/mgrl39/francinette-sgoinfre/master/update.sh)"
 ```
 
-## Uninstall:
-
-```shell
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/mgrl39/francinette-sgoinfre/master/uninstall.sh)"
-```
 ## Documentation
 
 I can only advise you to look at the [original Francinette documentation](https://github.com/xicodomingues/francinette/tree/master#readme) for good use of this great tool!
