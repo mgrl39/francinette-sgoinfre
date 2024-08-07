@@ -49,6 +49,7 @@ I can only advise you to look at the [original Francinette documentation](https:
 
 ## Who should I thank?
 
+* [WaRtr0](https://github.com/WaRtr0) for [francinette-image](https://github.com/WaRtr0/francinette-image)
 * [xicodomingues](https://github.com/xicodomingues) and [arsalas](https://github.com/arsalas) creator of the [francinette](https://github.com/xicodomingues/francinette) having link different tests, carried out by the people below
 * [Tripouille](https://github.com/Tripouille) for [libftTester](https://github.com/Tripouille/libftTester), [gnlTester](https://github.com/Tripouille/gnlTester) and [printfTester](https://github.com/Tripouille/printfTester)
 * [jtoty](https://github.com/jtoty) and [y3ll0w42](https://github.com/y3ll0w42) for [libft-war-machine](https://github.com/y3ll0w42/libft-war-machine)
