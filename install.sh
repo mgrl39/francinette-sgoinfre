@@ -17,7 +17,7 @@ set -e
 
 # Create the installation directory if it doesn't exist
 if [ ! -d "$INSTALL_DIR" ]; then
-    git clone https://github.com/WaRtr0/francinette-image.git $INSTALL_DIR
+    git clone https://github.com/mgrl39/francinette-sgoinfre.git $INSTALL_DIR
 fi
 
 # Make sure the run.sh script is executable
